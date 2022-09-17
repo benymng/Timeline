@@ -17,9 +17,10 @@ import {
   View,
 } from 'react-native';
 
-import {HomeScreen} from './navigation/screens/HomeScreen';
+import {NewScreen} from './navigation/screens/NewScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {SettingScreen} from './navigation/screens/SettingScreen';
+import {LibraryScreen} from './navigation/screens/LibraryScreen';
+import {SocialScreen} from './navigation/screens/SocialScreen';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
@@ -49,9 +50,9 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingScreen} />
-        {/* <Tab.Screen name="" */}
+        <Tab.Screen name="Library" component={LibraryScreen} />
+        <Tab.Screen name="New" component={NewScreen} />
+        <Tab.Screen name="Social" component={SocialScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

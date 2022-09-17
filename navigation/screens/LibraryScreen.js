@@ -10,17 +10,26 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {DataTable, Provider as PaperProvider} from 'react-native-paper';
-import {Button} from 'react-native-paper';
+import {Button, Card, Title, Paragraph} from 'react-native-paper';
 import {Searchbar} from 'react-native-paper';
 import {TextInput} from 'react-native-paper';
 import {Appbar} from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const SettingScreen = () => {
+export const LibraryScreen = () => {
   const [text, setText] = useState('');
+  const [list, setList] = useState([]);
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  const getList = async () => {
+    const jsonList = await AsyncStorage.getItem('list');
+    const list = JSON.parse(jsonList);
+    alert(list);
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -34,24 +43,40 @@ export const SettingScreen = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Appbar.Header>
+          {/* <Appbar.Header>
             <Appbar.BackAction onPress={() => {}} />
             <Appbar.Content title="Timeline" />
             <Appbar.Action icon="calendar" onPress={() => {}} />
             <Appbar.Action icon="magnify" onPress={() => {}} />
-          </Appbar.Header>
+          </Appbar.Header> */}
           <TextInput
             value={text}
             placeholder="Search"
             onChangeText={text => setText(text)}
           />
-          <DataTable>
+          <Card>
+            <Card.Content>
+              <Title>Card Title</Title>
+              <Paragraph>Tesitng</Paragraph>
+            </Card.Content>
+          </Card>
+
+          <Button
+            onPress={() => {
+              getList();
+            }}>
+            Testing
+          </Button>
+          <Button onPress={() => AsyncStorage.setItem('list', '')}>
+            Clear
+          </Button>
+          {/* <DataTable>
             <DataTable.Header>
               <DataTable.Title>Link</DataTable.Title>
               <DataTable.Title>Description</DataTable.Title>
               <DataTable.Title>Tag</DataTable.Title>
             </DataTable.Header>
-          </DataTable>
+          </DataTable> */}
         </View>
       </ScrollView>
     </SafeAreaView>
