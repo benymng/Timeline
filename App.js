@@ -50,8 +50,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Library" component={LibraryScreen} />
         <Tab.Screen name="New" component={NewScreen} />
+        <Tab.Screen name="Library" component={LibraryScreen} />
         <Tab.Screen name="Social" component={SocialScreen} />
       </Tab.Navigator>
     </NavigationContainer>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -15,20 +15,44 @@ import {Searchbar} from 'react-native-paper';
 import {TextInput} from 'react-native-paper';
 import {Appbar} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 export const LibraryScreen = () => {
   const [text, setText] = useState('');
   const [list, setList] = useState([]);
+  const [content, setContent] = useState([]);
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const getList = async () => {
-    const jsonList = await AsyncStorage.getItem('list');
-    const list = JSON.parse(jsonList);
-    alert(list);
-  };
+  useEffect(() => {
+    const testFunction = async () => {
+      try {
+        const jsonList = await AsyncStorage.getItem('list');
+        const test = JSON.parse(jsonList);
+        if (jsonList !== null) {
+          setList(test);
+          console.log(list);
+          setContent(
+            list.map(resource => {
+              return (
+                <Card>
+                  <Card.Content>
+                    <Title>{resource.title}</Title>
+                    {/* {content} */}
+                    <Paragraph>{resource.description}</Paragraph>
+                  </Card.Content>
+                </Card>
+              );
+            }),
+          );
+        }
+      } catch (error) {
+        console.log(error);
+        console.log('null');
+      }
+    };
+    testFunction();
+  }, []);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -57,19 +81,21 @@ export const LibraryScreen = () => {
           <Card>
             <Card.Content>
               <Title>Card Title</Title>
+              {/* {content} */}
               <Paragraph>Tesitng</Paragraph>
             </Card.Content>
           </Card>
+          {content}
 
-          <Button
+          {/* <Button
             onPress={() => {
               getList();
             }}>
             Testing
-          </Button>
-          <Button onPress={() => AsyncStorage.setItem('list', '')}>
+          </Button> */}
+          {/* <Button onPress={() => AsyncStorage.setItem('list', '')}>
             Clear
-          </Button>
+          </Button> */}
           {/* <DataTable>
             <DataTable.Header>
               <DataTable.Title>Link</DataTable.Title>

@@ -21,18 +21,20 @@ export const NewScreen = () => {
     setList([newItem, ...list]);
     jsonItem = JSON.stringify(list);
     await AsyncStorage.setItem('list', jsonItem);
-    alert('success');
-    setTitle('');
-    setUrl('');
-    setDescription('');
-  };
+    console.log(jsonItem);
+    const test = await AsyncStorage.getItem('list');
+    console.log(JSON.parse(test));
 
-  // clearList();
-  // console.log('success');
+    alert('success');
+    // setTitle('');
+    // setUrl('');
+    // setDescription('');
+  };
 
   return (
     <View>
       <Title>Testing</Title>
+
       <TextInput
         value={title}
         placeholder="Title"
